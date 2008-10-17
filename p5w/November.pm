@@ -668,6 +668,7 @@ sub log_in {
                 filename => $TEMPLATE_PATH.'login_succeeded.tmpl'
             );
             $template->param(LOGGED_IN => 1);
+            $template->param(USER      => $user_name);
 
             my $session_id = md5_base64(time);
             my $session_cookie = $cgi->cookie(

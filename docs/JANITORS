@@ -5,8 +5,6 @@ them are likely to be good starting-points for volunteers.
 If there's an item appearing here which has already been implemented, feel
 free to remove it.
 
-* Find all messages on the page and replace them with sensible things.
-
 * Rethink the exact layout of the login screen.
 
 * Refine the time indications in recent changes. (Right now they are just
@@ -44,8 +42,6 @@ free to remove it.
   the latest version of the page.
 
 * Don't save an edit unless anything is changed.
-
-* Add a 'Cancel' button to the edit form.
 
 * Consider following this advice:
   <http://developers.slashdot.org/comments.pl?sid=622185&cid=24295989>
