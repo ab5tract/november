@@ -5,8 +5,6 @@ them are likely to be good starting-points for volunteers.
 If there's an item appearing here which has already been implemented, feel
 free to remove it.
 
-* Rethink the exact layout of the login screen.
-
 * Refine the time indications in recent changes. (Right now they are just
   seconds since epoch.)
 

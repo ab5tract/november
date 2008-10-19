@@ -51,6 +51,11 @@ sub handle_request {
               read_file('skin/spartan.css');
         return;
     }
+    if ( $path eq '/create_account_button.png' ) {
+        print status_ok(),
+              read_file('skin/create_account_button.png');
+        return;
+    }
 
     my $action = $cgi->param('action') || 'view';
     my $handler = $dispatch{$action};

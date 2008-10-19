@@ -7,15 +7,84 @@
     <body onload="document.login.user_name.focus()">
         <TMPL_INCLUDE NAME="toolbar.tmpl">
         <div id="content">
-            <h1>Log in</h1>
-            <p>Don't have an account? <a href='#'>Create one</a>.</p>
 
-            <form method="POST" name="login">
-              <input type="hidden" name="action" value="log_in" />
-              <p>Username: <input name="user_name" /></p>
-              <p>Password: <input name="password" type="password" /></p>
-              <input type="submit" value="Log in" />
-            </form>
+            <table width="100%" cellspacing="0" class="login">
+                <tr>
+                    <td width="50%"
+                        valign="top"
+                        class="left">
+                        <h2 style="margin-left:45px">Log In</h2>
+                        <form method="POST" name="login">
+                            <input type="hidden" name="action" value="log_in" />
+
+                            <table width="100%" style="margin-top: 20px">
+                                <tr>
+                                    <td align="right" style="text-align: right">
+                                        <label for="email"> Username: </label>
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                               size="30"
+                                               id="user_name"
+                                               name="user_name"
+                                               value=""
+                                               style="width: 150px">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align=right style="text-align: right">
+                                        <label for="password"> Password: </label>
+                                    </td>
+                                    <td>
+                                        <input type="password"
+                                               size="30"
+                                               id="password"
+                                               name="password"
+                                               style="width: 150px">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style="padding-left: 6px;">
+                                        <input type="checkbox"
+                                               name="keepalive"
+                                               id="keeplive"
+                                               value="1"
+                                               checked="checked">
+                                        <label for="keeplive">Remember me</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style="line-height: 21px; padding-left: 6px">
+                                        <div class="forgotPassword">
+                                            <a href="#"
+                                               style="font-size: 10px; line-height: 21px;"
+                                               tabindex="50">Forgot password?</a>
+                                        </div>
+                                        <input type="submit"
+                                               class="loginButton"
+                                               value="Log in">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                    <td width="50%"
+                        valign="top"
+                        style="vertical-align: top"
+                        class="right">
+
+                        <h2>Don't have an account?</h2>
+                        <p>Registering a free account takes only a few seconds,
+                           and has many benefits.</p>
+                        <a class="button createAccountButton"
+                           href="#"
+                           style="width: 190px; text-align:center"><span>Sign up
+                           now</span></a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
