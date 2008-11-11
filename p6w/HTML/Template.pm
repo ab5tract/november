@@ -2,6 +2,7 @@ use v6;
 
 use Text::Escape;
 use HTML__Template__Grammar;
+use HTML::Template::Act;
 
 class HTML::Template {
     has $.input;
@@ -24,8 +25,11 @@ class HTML::Template {
         return self;
     }
 
-    method output() {
-        return substitute( parse($.input), %!params );
+    method output {
+        my $act = HTML::Template::Act.new;
+        $act.params = %!params;
+        HTML__Template__Grammar::TOP($.input, :action($act));
+        return $act.out;
     }
 
     sub parse( Str $in ) {

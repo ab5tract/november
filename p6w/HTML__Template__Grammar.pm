@@ -3,7 +3,7 @@ grammar HTML__Template__Grammar {
 
     regex contents  { <plaintext> <chunk>* };
     regex chunk     { <directive> <plaintext> };
-    regex plaintext { [ <!before '<TMPL_' ><!before '</TMPL_' >. ]* };
+    regex plaintext { [ <!before '<TMPL_' ><!before '</TMPL_' >. ]* {*} };
 
     token directive {
                     | <insertion>
@@ -14,13 +14,15 @@ grammar HTML__Template__Grammar {
 
     regex insertion {
         <.tag_start> 'VAR' <attributes> '>'
+        {*}
     };
 
     regex if_statement { 
         <.tag_start> 'IF' <attributes> '>' 
         <contents>
         [ '<TMPL_ELSE>' <else=contents> ]?
-        '</TMPL_IF>' 
+        '</TMPL_IF>'
+        {*} 
     };
 
     regex for_statement {

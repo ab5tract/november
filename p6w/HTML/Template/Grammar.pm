@@ -1,4 +1,4 @@
-grammar HTML::Template::Grammar {
+grammar HTML__Template__Grammar {
     regex TOP { ^ <contents> $ };
 
     regex contents  { <plaintext> <chunk>* };
