@@ -6,7 +6,7 @@ grammar Text__Markup__Wiki__Minimal__Syntax {
 
     token heading { '==' <parchunk>+ '==' };
 
-    token parchunk { <twext> || <wikimark> || <metachar> || <malformed> };
+    token parchunk { <plugin> || <twext> || <wikimark> || <metachar> || <malformed> };
 
     # RAKUDO: a token may not be called 'text' [perl #57864]
     token twext { [ <.alnum> || <.otherchar> || <.whitespace> ]+ };
@@ -23,10 +23,19 @@ grammar Text__Markup__Wiki__Minimal__Syntax {
     token metachar { '<' || '>' || '&' || \' };
 
     token malformed { '[' || ']' }
+
+    token plugin       { <plugin_start> <plugin_text> <plugin_end> };
+
+    token plugin_start { '<'  [ <.alnum> || <.otherchar> ]+ '>' };
+
+    token plugin_end   { '</' [ <.alnum> || <.otherchar> ]+ '>' };
+
+    token plugin_text  { <.twext> };
 }
 
 class Text::Markup::Wiki::Minimal {
     has $.link_maker is rw;
+    has $.plugin_loader is rw;
 
     method format($text ) {
         my @pars = grep { $_ ne "" },
@@ -54,6 +63,21 @@ class Text::Markup::Wiki::Minimal {
                     for $/<parchunk> {
                         if $_<twext> { 
                             $result ~= $_<twext>;
+                        }
+                        elsif $_<plugin> {
+                            # TODO, check that $name and $end_tag is the same
+                            my $name = $_<plugin><plugin_start>;
+                            $name .= subst('<','');
+                            $name .= subst('>','');
+                            my $end_tag = $_<plugin><plugin_end>;
+                            $end_tag .= subst('<','');
+                            $end_tag .= subst('>','');
+                            $end_tag .= subst('/','');
+                            my $content = $_<plugin><plugin_text>;
+
+                            if $.plugin_loader {
+                                $result ~= $.plugin_loader($name, $content);
+                            }
                         }
                         elsif $_<wikimark> {
                             if $.link_maker {
