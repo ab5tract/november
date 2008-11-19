@@ -38,3 +38,5 @@ sub make_link {
     return 'LINK';
 }
 sub plugin_loader($name, $content) { $content }
+
+# vim:ft=perl6
