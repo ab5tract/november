@@ -13,7 +13,7 @@ method insertion ($m) {
     my $name = ~$m<attributes><name>;
     my $esc_type = %($m<attributes>)<escape>;
     my $value = %.params{$name};
-    $value = escape($value, $esc_type ) if $esc_type;
+    $value = escape($value, ~$esc_type ) if $esc_type;
     $!out ~= $value;
 }
 
@@ -22,6 +22,12 @@ method if_statement ($m) {
     unless %.params{$name} {
         # hmm.
     }
+}
+
+method for_statement ($m) {
+    my $name = ~$m<attributes><name>;
+    my $iterations = %.params{$name};
+    # hmmm.
 }
 
 # vim:ft=perl6

@@ -1,7 +1,7 @@
 use v6;
 
 use Text::Escape;
-use HTML__Template__Grammar;
+use HTML::Template::Grammar;
 use HTML::Template::Act;
 
 class HTML::Template {
@@ -28,7 +28,7 @@ class HTML::Template {
     method output {
         my $act = HTML::Template::Act.new;
         $act.params = %!params;
-        HTML__Template__Grammar::TOP($.input, :action($act));
+        HTML::Template::Grammar::TOP($.input, :action($act));
         return $act.out;
     }
 

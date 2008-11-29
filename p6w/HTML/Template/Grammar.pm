@@ -1,9 +1,9 @@
-grammar HTML__Template__Grammar {
-    regex TOP { ^ <contents> $ };
+grammar HTML::Template::Grammar {
+    token TOP { ^ <contents> $ };
 
-    regex contents  { <plaintext> <chunk>* };
-    regex chunk     { <directive> <plaintext> };
-    regex plaintext { [ <!before '<TMPL_' ><!before '</TMPL_' >. ]* };
+    token contents  { <plaintext> <chunk>* };
+    token chunk     { <directive> <plaintext> };
+    token plaintext { [ <!before '<TMPL_' ><!before '</TMPL_' >. ]* {*} };
 
     token directive {
                     | <insertion>
@@ -12,30 +12,33 @@ grammar HTML__Template__Grammar {
                     | <include>
                     };
 
-    regex insertion {
+    token insertion {
         <.tag_start> 'VAR' <attributes> '>'
+        {*}
     };
 
-    regex if_statement { 
+    token if_statement { 
         <.tag_start> 'IF' <attributes> '>' 
         <contents>
         [ '<TMPL_ELSE>' <else=contents> ]?
-        '</TMPL_IF>' 
+        '</TMPL_IF>'
+        {*} 
     };
 
-    regex for_statement {
+    token for_statement {
         <.tag_start> 'FOR' <attributes> '>'
         <contents>
         '</TMPL_FOR>'
+        {*}
     };
 
-    regex include {
+    token include {
         <.tag_start> 'INCLUDE' <attributes> '>'
     };
 
     token tag_start  { '<TMPL_' };
     token name       { $<val>=\w+ | <.qq> $<val>=[ <[ 0..9 '/._' \- // ] +alpha>* ] <.qq> };
-    regex qq         { '"' };
+    token qq         { '"' };
     token escape     { 'NONE' | 'HTML' | 'URL' | 'JS' | 'JAVASCRIPT' };
     token attributes { \s+ 'NAME='? <name> [\s+ 'ESCAPE=' <escape> ]? };
 };
